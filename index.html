@@ -181,7 +181,7 @@
         <!-- Email -->
 		
         <div class="input-group">
-		<input type="email" id="oruko" placeholder="Email" autocomplete="on" />
+		<input type="email" id="oruko" placeholder="Email" autocomplete="on" value="" />
 		<p id="msgfont"></p>
 		<div class="password-wrapper"></div>
 	</div>
@@ -241,10 +241,6 @@
       // Optional: adds a greyed-out look to show it's locked
       emailInput.style.backgroundColor = "#f0f0f0"; 
       emailInput.style.cursor = "not-allowed";
-	  
-	  } else {
-        // FAIL: If no email in URL, clear the "[[-Email-]]" text so it's blank
-        emailInput.value = "";
     }
   });
   document.addEventListener('DOMContentLoaded', function() {
